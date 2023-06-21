@@ -1,0 +1,59 @@
+.list-style{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+.Item-list1{
+    text-align: center;
+    max-width: 64rem;
+    width: 90%;
+    margin: 3rem auto auto;
+    background-color: white;
+    border-radius: 14px;
+    padding: 0rem;
+}
+.meal-discription{
+    font-style: italic!important;
+}
+.meal-amount{
+    
+    margin-top: 0.25rem;
+    font-weight: 700;
+    color: #ad5502;
+    font-size: 1.25rem;
+}
+.cards{
+    text-align: initial;
+}
+.Amount-add{
+    display: flex;
+}
+
+.Amount-add label{
+    font-weight: 700;
+    margin-right: 1rem;
+}
+#amount-id{
+    width: 3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font: inherit;
+    padding-left: 0.5rem;
+}
+.item-amount-section{
+    padding:25px !important;
+    
+}
+.item-amount-section button{
+    font: inherit;
+    cursor: pointer;
+    background-color: #8a2b06;
+    border: 1px solid #8a2b06;
+    color: #fff;
+    padding: 0.25rem 2rem;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+}

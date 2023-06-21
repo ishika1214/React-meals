@@ -1,0 +1,17 @@
+.cart-button button{
+    cursor: grab;
+    font: inherit;
+    border: none;
+    background-color: #4d1601;
+    color: #fff;
+    padding: 0.75rem 3rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 25px;
+    font-weight: 700;
+}
+.Total-amount{
+    display: flex;
+    justify-content: space-between;
+}
