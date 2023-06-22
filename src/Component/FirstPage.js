@@ -2,6 +2,7 @@ import React from 'react'
 import './FirstPage.css'
 import YourCart from './YourCart'
 import ItemList from './ItemList'
+import NewItems  from "./NewItems"
 // import imageFile '../image/meals-image.webp'
 
 
@@ -25,7 +26,9 @@ const FirstPage = ({itemData}) => {
                 <p>All our meals are cooked with high-quality ingredients, just-in-time and of course by experienced chefs!</p>
              </div>
 
-
+            <div className='middle-card2'>
+                <NewItems/>
+            </div>
             <div className="item-List">
                 <ItemList itemData={itemData}/>
             </div>

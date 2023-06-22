@@ -5,6 +5,7 @@ const CartProvider = (props) => {
     const defaultCart = {
         items: [],
         totalAmount: 0,
+      
     };
 
   
@@ -31,14 +32,14 @@ const CartProvider = (props) => {
                 updatedItems[existingCartItemIndex] = updatedItem;
             } else {
                 updatedItems = [action.item, ...state.items];
-                console.log({tA:state.totalAmount,cP:action.item.price,cA:action.item.amount});
+              
                 updatedTotalAmount = state.totalAmount + (action.item.price * action.item.amount);
             }
 
 
             return {
                 items: updatedItems,
-                totalAmount: updatedTotalAmount,
+                totalAmount:updatedTotalAmount.toFixed(2),
             };
 
         }
@@ -84,7 +85,7 @@ const CartProvider = (props) => {
         totalAmount: cartState.totalAmount,
         addItem: addItemHandler,
         removeItem: removeItemHandler,
-        // cardOpenHandle:OpenClose
+       
     }
 
     return (

@@ -1,10 +1,11 @@
 // import logo from './logo.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import FirstPage from './Component/FirstPage';
-import CartProvider from './Context/CartProvider'
+// import CartProvider from './Context/CartProvider'
 
 function App() {
+  const [newItems, setNewItems] = useState([]);
   const itemData = [
     {
       name: "Sushi",
@@ -39,12 +40,17 @@ function App() {
 
   ]
 
-
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem('items')) || [];
+    setNewItems(storedItems);
+  }, []);
 
   return (
-   <CartProvider>
-      <FirstPage itemData={itemData} />
-      </CartProvider>
+    <div>
+        <FirstPage itemData={itemData} />
+    </div>
+    
+   
   );
 }
 

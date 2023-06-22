@@ -15,3 +15,10 @@
     display: flex;
     justify-content: space-between;
 }
+.cart_count{
+    background-color: #B94517;
+    padding: 0.25rem 1rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+    font-weight: 700;
+}

@@ -1,76 +1,72 @@
-import React, { useContext, useState } from 'react'
-import './YourCart.css'
-import Modal from './UI/Modal'
+import React, { useState } from 'react';
+import './YourCart.css';
+import Modal from './UI/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, removeItem } from '../Context/CartReducer';
 
-import classes from './Cart.module.css'
-import CartContext from '../Context/CartContext'
+import classes from './Cart.module.css';
 
 const YourCart = () => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalAmount =useSelector((state)=>state.cart.totalAmount)
 
-    const [Visible, setVisible] = useState(false);
-    // const totalAmount = `$${cxt.totalAmount.toFixed(2)}`;
-    const{items,totalAmount}= useContext(CartContext)
-   
+  const [visible, setVisible] = useState(false);
 
-    const cxt = useContext(CartContext);
-    const noOfItems = cxt.items.reduce((currentNumber, item) => {
-        return currentNumber + item.amount;
-      }, 0);
-    
+  const handleAddItem = (item) => {
+    dispatch(addItem(item));
+  };
 
-    const removeItemHandler = (id) => {
-        cxt.removeItem(id);
-      };
-      const addItemHandler = (item) => {
-        console.log(item);
-        cxt.addItem(item)
-      };
-    
+  const handleRemoveItem = (itemId) => {
+    dispatch(removeItem(itemId));
+  };
+  const totalItems = cartItems.reduce((total, item) => total + item.amount, 0);
 
-
-    return (
-
-        <div>
-            <div className="cart-button">
-                <button onClick={() => { setVisible(true) }}>Your Cart <span style={{border:"1px solid white",padding:"2px", margin:"2px"}}>{noOfItems} </span> </button>
-               
+  return (
+    <div>
+      <div className="cart-button">
+        <button onClick={() => setVisible(true)}>
+          <span>Your Cart</span>
+          <span className='cart_count'>{totalItems}</span>
+        
+        </button>
+      </div>
+      {visible && (
+        <Modal onClose={() => setVisible(false)}>
+          <div>
+            <ul className={classes['cart-items']}>
+              {cartItems.map((item, id) => (
+                <li className={classes['cart-item']} key={id}>
+                  <div>
+                    <h2>{item.name}</h2>
+                    <div className={classes.summary}>
+                      <span className={classes.price}>{item.price}</span>
+                      <span className={classes.amount}>
+                        <span className={classes.quantity}>{item.amount}</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div className={classes.actions}>
+                    <button onClick={() => handleRemoveItem(item.id)}>−</button>
+                    <button onClick={() => handleAddItem(item)}>+</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="Total-amount">
+              <span>TotalAmount</span>
+              <span>${totalAmount}</span>
             </div>
-            {Visible &&
-                <Modal onClose={setVisible} >
-                    <div>
-                        <ul className={classes["cart-items"]}>
-                            {
-                                items.map((item, id) => (
-                                    <li className={classes["cart-item"]}>
-                                        <div>
-                                            <h2>{item.name}</h2>
-                                            <div className={classes.summary}>
-                                                <span className={classes.price}>{item.price}</span>
-                                                <span className={classes.amount}> <span className={classes.quantity} >{item.amount}</span> </span>
-                                            </div>
-                                        </div>
-                                        <div className={classes.actions}>
-                                           
-                                            <button onClick={removeItemHandler.bind(null,item.id)}>−</button>
-                                            <button onClick={addItemHandler.bind(null,item)} >+</button>
-                                        </div>
-                                    </li>
- 
-                                ))
-                            }
-                        </ul>
-                            <div className='Total-amount'><span>TotalAmount</span><span>{totalAmount}</span></div>
-                    </div>
-                    <div className={classes.actions}>
-                        <button onClick={() => { setVisible(false) }} className={classes["button--alt"]} >close</button>
-                    </div>
+          </div>
+          <div className={classes.actions}>
+            <button onClick={() => setVisible(false)} className={classes['button--alt']}>
+              close
+            </button>
+          </div>
+        </Modal>
+      )}
+    </div>
+  );
+};
 
-                </Modal>
-            }
-
-        </div>
-    )
-}
-
-export default YourCart
-
+export default YourCart;
