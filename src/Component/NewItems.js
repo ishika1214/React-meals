@@ -2,37 +2,42 @@ import React, { useState } from 'react';
 import "./FirstPage.css"
 import { useDispatch } from 'react-redux';
 import { addNewItems } from '../Context/CartReducer';
+import axios from 'axios';
 
 const NewItems = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
+    try {
+      const itemId = new Date().getTime().toString();
 
-    const itemId = new Date().getTime();
+      const newItem = {
+        id: itemId,
+        name: name,
+        price: price,
+        description: description
+      };
+      console.log(newItem);
+      const response = await axios.post(`https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/itemsData`,newItem );
+      console.log(response);
 
+      dispatch(addNewItems([newItem]));
 
-    const newItem = {
-      id: itemId,
-      name: name,
-      price: price,
-      description: description
-    };
+      // const existingItems = JSON.parse(localStorage.getItem('items')) || [];
+      // existingItems.push(newItem);
+      // localStorage.setItem('items', JSON.stringify(existingItems));
 
-    dispatch(addNewItems([newItem]));
-    const existingItems = JSON.parse(localStorage.getItem('items')) || [];
+      setName('');
+      setPrice('');
+      setDescription('');
+    }
+    catch (error) {
+      console.log(error);
+    }
 
-
-    existingItems.push(newItem);
-
-
-    localStorage.setItem('items', JSON.stringify(existingItems));
-
-    setName('');
-    setPrice('');
-    setDescription('');
   };
 
   return (

@@ -23,7 +23,7 @@ const CartReducer = createSlice({
           id: newItem.id,
           name:newItem.name,
           price: newItem.price,
-          amount: newItem.amount,
+          amount: parseInt(newItem.amount),
           totalPrice: newItem.price
         });
         
@@ -50,7 +50,8 @@ const CartReducer = createSlice({
     },
 
     addNewItems: (state, action) => {
-      state.newItems = action.payload; 
+      state.newItems = [...state.newItems, ...action.payload];
+     
     },
     showModal:(state)=>{
         state.isOpen=true;

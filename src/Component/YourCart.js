@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './YourCart.css';
 import Modal from './UI/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItem, removeItem } from '../Context/CartReducer';
+import { addItem, removeItem ,addNewItems} from '../Context/CartReducer';
 
 import classes from './Cart.module.css';
+import axios from 'axios';
 
 const YourCart = () => {
   const dispatch = useDispatch();
@@ -12,16 +13,55 @@ const YourCart = () => {
   const totalAmount =useSelector((state)=>state.cart.totalAmount)
 
   const [visible, setVisible] = useState(false);
+console.log(cartItems)
 
-  const handleAddItem = (item) => {
+  // const handleAddItem = (item) => {
+    
+  //   dispatch(addItem(item));
+  // };
+
+  // const handleRemoveItem = (itemId) => {
+  //   dispatch(removeItem(itemId));
+  // };
+
+
+  useEffect(() => {
+    axios
+      .get(`https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems`)
+      .then((response) => {
+        const cartItemsFromAPI = response.data;
+        cartItemsFromAPI.forEach((item) => dispatch(addItem(item))); // Dispatch addItem for each individual item
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [dispatch]);
+
+ const handleAddItem = async (item) => {
+  try {
+    await axios.post(
+      'https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems',
+      item
+    );
     dispatch(addItem(item));
-  };
-
-  const handleRemoveItem = (itemId) => {
+  } catch (error) {
+    console.log(error);
+  }
+};
+const handleRemoveItem = async (itemId) => {
+  try {
     dispatch(removeItem(itemId));
-  };
-  const totalItems = cartItems.reduce((total, item) => total + item.amount, 0);
 
+    await axios.delete(
+      `https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems/${itemId}`
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+  const totalItems = cartItems.reduce((total, item) => total + item.amount, 0);
+ 
   return (
     <div>
       <div className="cart-button">
