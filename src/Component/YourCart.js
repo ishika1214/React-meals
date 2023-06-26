@@ -59,7 +59,7 @@ const handleRemoveItem = async (itemId) => {
     console.log(error);
   }
 };
-
+//sfdgdsfg
   const totalItems = cartItems.reduce((total, item) => total + item.amount, 0);
  
   return (
