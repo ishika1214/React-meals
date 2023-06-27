@@ -12,21 +12,8 @@ const ItemList = ({itemData}) => {
   const useraddedItems =useSelector((state) => state.cart.newItems);
 
 
-  useEffect(()=>{
-    axios.get(`https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/itemsData`)
-    .then(response=>{
-      dispatch(addNewItems(response.data));
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
-
-  },[dispatch]);
+  
  
-
-
-
-
 
   // const printData = axios.get(`https://crudcrud.com/api/7aff79ad06e1416db6a308f70dbe4707/itemsData`)||[]
   // console.log(printData,"printe data")

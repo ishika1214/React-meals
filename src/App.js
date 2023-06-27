@@ -2,6 +2,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import FirstPage from './Component/FirstPage';
+import { Route, Routes } from 'react-router-dom';
+import NewItems from './Component/NewItems';
+import { addNewItems } from './Context/CartReducer';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 // import CartProvider from './Context/CartProvider'
 
 function App() {
@@ -39,7 +44,18 @@ function App() {
     }
 
   ]
+  
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    axios.get(`https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/itemsData`)
+    .then(response=>{
+      dispatch(addNewItems(response.data));
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
 
+  },[dispatch]);
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('items')) || [];
     setNewItems(storedItems);
@@ -47,7 +63,12 @@ function App() {
 
   return (
     <div>
-        <FirstPage itemData={itemData} />
+       
+      <Routes>
+        <Route path ="/" element= { <FirstPage itemData={itemData} />}/>
+        <Route path='/add' element={<NewItems/>}/>
+      </Routes>
+       
     </div>
     
    

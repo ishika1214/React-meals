@@ -27,7 +27,7 @@ console.log(cartItems)
 
   useEffect(() => {
     axios
-      .get(`https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems`)
+      .get(`https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/cartItems`)
       .then((response) => {
         const cartItemsFromAPI = response.data;
         cartItemsFromAPI.forEach((item) => dispatch(addItem(item))); // Dispatch addItem for each individual item
@@ -40,7 +40,7 @@ console.log(cartItems)
  const handleAddItem = async (item) => {
   try {
     await axios.post(
-      'https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems',
+      'https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/cartItems',
       item
     );
     dispatch(addItem(item));
@@ -53,7 +53,7 @@ const handleRemoveItem = async (itemId) => {
     dispatch(removeItem(itemId));
 
     await axios.delete(
-      `https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems/${itemId}`
+      `https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/cartItems/${itemId}`
     );
   } catch (error) {
     console.log(error);

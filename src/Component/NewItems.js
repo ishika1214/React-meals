@@ -3,13 +3,14 @@ import "./FirstPage.css"
 import { useDispatch } from 'react-redux';
 import { addNewItems } from '../Context/CartReducer';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const NewItems = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
-
+  const navigate=useNavigate();
   const handleAddItem = async () => {
     try {
       const itemId = new Date().getTime().toString();
@@ -21,18 +22,20 @@ const NewItems = () => {
         description: description
       };
       console.log(newItem);
-      const response = await axios.post(`https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/itemsData`,newItem );
+      const response = await axios.post(`https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/itemsData`,newItem );
       console.log(response);
 
       dispatch(addNewItems([newItem]));
 
       // const existingItems = JSON.parse(localStorage.getItem('items')) || [];
       // existingItems.push(newItem);
-      // localStorage.setItem('items', JSON.stringify(existingItems));
+      // localStorage.setItem('items', JSON.stringify(existingItems)); 
 
       setName('');
       setPrice('');
       setDescription('');
+    
+      navigate("/")
     }
     catch (error) {
       console.log(error);
@@ -41,7 +44,8 @@ const NewItems = () => {
   };
 
   return (
-    <div className='newItems-here'>
+  <div className='middle-card2'>
+ <div className='newItems-here'>
       <div className='new-items'>
         <label>Name</label>
         <input type="text" value={name} onChange={e => setName(e.target.value)} />
@@ -58,6 +62,11 @@ const NewItems = () => {
       </div>
       <button onClick={handleAddItem}>Add Item</button>
     </div>
+
+
+
+  </div>
+   
   );
 };
 

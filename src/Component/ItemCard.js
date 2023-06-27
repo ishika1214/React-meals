@@ -24,7 +24,7 @@ const ItemCard = ({ item }) => {
       // newItem.amount = parseInt(amount); 
       console.log(amount);
       await axios.post(
-        'https://crudcrud.com/api/614c7412b01a4bae998e947d332e7fd4/cartItems',
+        'https://crudcrud.com/api/6232fea1d41b4be5a93186eeeca2a805/cartItems',
         newItem
       );
   
